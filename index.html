@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dekodér odkazu O2 na eRoušku</title>
+    <style type="text/css">
+        html {
+            margin: 0;
+            padding: 0;
+            background-color: #cccccc;
+            color: #000000;
+            font-family: Consolas, 'Courier New', Courier, monospace;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        header {
+            background-color: #eedd99;
+            padding: 1ex 3ex;
+            margin-bottom: 3ex;
+        }
+
+        body {
+            max-width: 900px;
+            margin: 3ex auto;
+        }
+
+        table {
+            margin: 0 auto;
+        }
+
+        table td {
+            padding: .5ex;
+        }
+
+        table th {
+            padding: .5ex;
+            text-align: left;
+        }
+
+        input[type=text] {
+            font-family: Consolas, 'Courier New', Courier, monospace;
+            font-size: 100%;
+            border: 2px solid #666666;
+            border-radius: .5ex;
+            padding: .5ex;
+        }
+
+        button {
+            font-family: Consolas, 'Courier New', Courier, monospace;
+            font-size: 100%;
+            padding: 1ex 3ex;
+            background-color: #999999;
+            border: 2px solid #666666;
+            border-radius: .5ex;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333333;
+            color: #ffffff;
+        }
+
+        .c {
+            text-align: center;
+        }
+
+        footer {
+            border-top: 2px solid #666666;
+            font-size: small;
+            text-align: center;
+            margin-top: 3ex;
+            padding-top: 1ex;
+        }
+
+        a:link, a:visited {color: #0000cc;}
+        a:hover {color: #0066ff;}
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
+</head>
+
+<body>
+    <h1>Dekodér odkazu O2 na eRoušku</h1>
+    <header>
+        <p>Odkaz na stažení aplikace eRouška, který rozesílá operátor O2, obsahuje zakódované telefonní číslo, na které
+            byla zpráva zaslána. Dekódování je možné vyzkoušet na této stránce.</p>
+        <p>Dekódování probíhá pomocí JavaScriptu ve vašem prohlížeči, mimo něj nejsou odesílány žádné údaje.</p>
+    </header>
+    <table>
+        <tr>
+            <th>Odkaz:</th>
+            <td>http://info.o2.cz/ <input type="text" id="code" /></td>
+        </tr>
+        <tr>
+            <th>Telefonní číslo:</th>
+            <td><span id="result">zadejte kód a klepněte na <i>Dekódovat</i></span></td>
+        </tr>
+    </table>
+    <p class="c"><button onclick="buttonClick()">Dekódovat</button></p>
+    <script type="text/javascript">
+        function decode(value) {
+            value = value.substring(0, 5).split("").reverse().join("");
+            var letters = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var result = 0;
+
+            for (var i = 0, len = value.length; i < len; i++) {
+                result *= 62;
+                result += letters.indexOf(value[i]);
+            }
+            return result;
+        };
+
+        function buttonClick() {
+            var code = document.getElementById("code").value;
+            var result = decode(code);
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+    <footer>
+        Michal Altair Valášek | <a href="https://www.rider.cz/">www.rider.cz</a> | <a href="https://www.altair.blog">www.altair.blog</a>
+    </footer>
+    <a class="github-fork-ribbon" href="https://github.com/ridercz/o2rouska" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
+</body>
+
+</html>
